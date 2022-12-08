@@ -1,12 +1,22 @@
-use sea_orm::{prelude::DateTime, ColumnTrait, EntityTrait, QueryOrder, QuerySelect};
+use sea_orm::{
+    prelude::DateTime, ColumnTrait, ConnectOptions, DatabaseConnection, EntityTrait, QueryFilter, QueryOrder, QuerySelect,
+    SqlxPostgresConnector,
+};
+
+use game_orm::{leaderboard::Column, prelude::Leaderboard};
+use Column::{EndTime, GameMode, GameTime};
+
+async fn game_db() -> DatabaseConnection {
+    SqlxPostgresConnector::connect(ConnectOptions::from("postgresql://localhost:5432/postgres")).await.unwrap()
+}
 
 #[tokio::test]
-async fn select() {
-    let db = game_db().await.unwrap();
-    let cakes = game_orm::leaderboard::Entity::find()
-        .filter(game_orm::leaderboard::Column::EndTime.gt(DateTime::from_timestamp_opt(0, 0)))
-        .filter(game_orm::leaderboard::Column::GameMode.eq(1))
-        .order_by_asc(game_orm::leaderboard::Column::GameTime)
+async fn select_daily() {
+    let db = game_db().await;
+    let cakes = Leaderboard::find()
+        .filter(EndTime.gt(DateTime::from_timestamp_opt(0, 0)))
+        .filter(GameMode.eq(1))
+        .order_by_asc(GameTime)
         .limit(2)
         .all(&db)
         .await

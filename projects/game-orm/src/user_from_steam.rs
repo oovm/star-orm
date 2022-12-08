@@ -7,8 +7,10 @@ use serde::{Deserialize, Serialize};
 #[sea_orm(table_name = "UserFromSteam")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
-    pub steam_id: i32,
+    pub steam_id: i64,
     pub link_uid: Option<Uuid>,
+    #[sea_orm(column_type = "Text")]
+    pub steam_name: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

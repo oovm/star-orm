@@ -4,13 +4,12 @@ use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
-#[sea_orm(table_name = "Leaderboard")]
+#[sea_orm(table_name = "LogResult")]
 pub struct Model {
-    #[sea_orm(primary_key, auto_increment = false)]
-    pub game_id: Uuid,
-    pub start_time: Option<Time>,
+    pub game_id: Option<Uuid>,
+    pub start_time: Option<DateTime>,
     pub game_time: Option<Time>,
-    pub end_time: Option<Time>,
+    pub end_time: Option<DateTime>,
     pub game_mode: Option<i32>,
     pub game_result: Option<Json>,
 }
