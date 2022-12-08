@@ -1,5 +1,5 @@
 [package]
-name = "linq-core"
+name = "linq-orm"
 version = "0.0.0"
 authors = ["Aster <192607617@qq.com>"]
 description = "..."
@@ -12,7 +12,17 @@ edition = "2021"
 [dependencies]
 sqlparser = "0.28.0"
 
+[dependencies.sqlx]
+version = "0.6.2"
+features = ["runtime-tokio-rustls", "uuid", "chrono"]
+
+[dependencies.linq-core]
+#version = "0.0.1"
+path = "../linq-core"
+#features = ["runtime-tokio-rustls", "uuid", "chrono"]
+
 [dev-dependencies]
 
 [features]
-default = []
+default = ["postgres"]
+postgres = ["sqlx/postgres"]
