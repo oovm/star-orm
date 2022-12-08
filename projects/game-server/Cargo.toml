@@ -13,9 +13,13 @@ edition = "2021"
 itertools = "0.10.5"
 tokio = { version = "1.23.0", features = ["full"] }
 
-[dependencies.sqlx]
-version = "0.6.2"
-features = ["runtime-tokio-rustls", "uuid", "chrono", "postgres"]
+#[dependencies.sqlx]
+#version = "0.6.2"
+#features = ["runtime-tokio-rustls", "uuid", "chrono", "postgres"]
+
+[dependencies.sea-orm]
+version = "0.10.5"
+features = ["runtime-tokio-rustls", "sqlx-postgres"]
 
 [dependencies.game-orm]
 path = "../game-orm"

@@ -17,6 +17,6 @@ serde = { version = "1.0.149", features = ["derive"] }
 version = "0.10.5"
 features = ["runtime-tokio-rustls", "sqlx-postgres"]
 
-[dependencies.sqlx]
-version = "0.6.2"
-features = ["runtime-tokio-rustls", "uuid", "chrono", "postgres"]
+#[dependencies.sqlx]
+#version = "0.6.2"
+#features = ["runtime-tokio-rustls", "uuid", "chrono", "postgres"]
