@@ -1,5 +1,6 @@
 [package]
-name = "linq-orm"
+name = "game-orm"
+publish = false
 version = "0.0.0"
 authors = ["Aster <192607617@qq.com>"]
 description = "..."
@@ -11,14 +12,22 @@ edition = "2021"
 
 [dependencies]
 sqlparser = "0.28.0"
+linq = "0.0.1-release"
+sea-orm = "0.10.5"
+tokio = { version = "1.13.0", features = ["full"] }
 
 [dependencies.sqlx]
 version = "0.6.2"
 features = ["runtime-tokio-rustls", "uuid", "chrono"]
 
-[dependencies.linq-core]
+#[dependencies.linq-core]
 #version = "0.0.1"
-path = "../linq-core"
+#path = "../linq-core"
+#features = ["runtime-tokio-rustls", "uuid", "chrono"]
+
+#[dependencies.linq-macro]
+#version = "0.0.1"
+#path = "../linq-macro"
 #features = ["runtime-tokio-rustls", "uuid", "chrono"]
 
 [dev-dependencies]

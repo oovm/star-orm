@@ -1,4 +1,4 @@
-use std::{cmp::Ordering, marker::PhantomData};
+use std::marker::PhantomData;
 
 pub use itertools::Itertools;
 
@@ -26,7 +26,11 @@ impl<T> QueryPlanner<T> {
         let _ = predicate;
         self
     }
-    pub fn order_by(mut self, key_selector: fn(T) -> Ordering) -> Self {
+    pub fn order_by<K, F>(mut self, key_selector: F) -> Self
+    where
+        K: Ord,
+        F: FnMut(&T) -> K,
+    {
         let _ = key_selector;
         self
     }

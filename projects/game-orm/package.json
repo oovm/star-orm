@@ -1,0 +1,7 @@
+{
+    "private": true,
+    "scripts": {
+        "db": "sea generate entity -u postgresql://localhost:5432/postgres --with-serde both",
+        "p": "cargo publish --allow-dirty"
+    }
+}

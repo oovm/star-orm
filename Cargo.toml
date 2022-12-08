@@ -1,7 +1,8 @@
 [workspace]
 members = ["projects/*"]
 default-members = [
-    "projects/linq-core",
+    "projects/game-orm",
+    "projects/game-server",
 ]
 exclude = [
     "projects/.DS_Store",
