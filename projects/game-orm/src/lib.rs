@@ -3,5 +3,6 @@
 pub mod prelude;
 
 pub mod leaderboard;
+pub mod log_result;
 pub mod user;
 pub mod user_from_steam;

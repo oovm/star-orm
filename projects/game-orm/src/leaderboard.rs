@@ -7,12 +7,7 @@ use serde::{Deserialize, Serialize};
 #[sea_orm(table_name = "Leaderboard")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
-    pub game_id: Uuid,
-    pub start_time: Option<Time>,
-    pub game_time: Option<Time>,
-    pub end_time: Option<Time>,
-    pub game_mode: Option<i32>,
-    pub game_result: Option<Json>,
+    pub date: Date,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

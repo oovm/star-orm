@@ -6,12 +6,16 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
 #[sea_orm(table_name = "LogResult")]
 pub struct Model {
-    pub game_id: Option<Uuid>,
-    pub start_time: Option<DateTime>,
+    #[sea_orm(primary_key, auto_increment = false)]
+    pub game_id: Uuid,
+    pub is_valid: bool,
+    pub start_time: DateTime,
     pub game_time: Option<Time>,
     pub end_time: Option<DateTime>,
     pub game_mode: Option<i32>,
-    pub game_result: Option<Json>,
+    pub player_damage: Option<i32>,
+    pub player_death: Option<i32>,
+    pub player_kill: Option<i32>,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
