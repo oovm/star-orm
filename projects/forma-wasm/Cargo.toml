@@ -1,5 +1,6 @@
 [package]
-name = "game-server"
+name = "forma-wasm"
+publish = false
 version = "0.0.0"
 authors = ["Aster <192607617@qq.com>"]
 description = "..."
@@ -16,16 +17,6 @@ uuid = { version = "1.2.2", features = ["serde", "v4"] }
 chrono = { version = "0.4.23", features = ["serde"] }
 mockall = "0.11.3"
 
-#[dependencies.sqlx]
-#version = "0.6.2"
-#features = ["runtime-tokio-rustls", "uuid", "chrono", "postgres"]
-
-[dependencies.sea-orm]
-version = "0.10.5"
-features = ["runtime-tokio-rustls", "sqlx-postgres"]
-
-[dependencies.game-orm]
-path = "../game-orm"
 
 [dev-dependencies]
 

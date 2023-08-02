@@ -1,8 +1,9 @@
 [workspace]
 members = ["projects/*"]
 default-members = [
-    "projects/game-orm",
-    "projects/game-server",
+    "projects/forma-core",
+    "projects/forma-parser",
+    "projects/forma-wasm",
 ]
 exclude = [
     "projects/.DS_Store",
