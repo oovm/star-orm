@@ -1,3 +1,5 @@
 use std::ops::Range;
 
-pub mod atomic;
+mod atomic;
+
+pub use self::atomic::IdentifierNode;
