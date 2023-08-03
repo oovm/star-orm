@@ -1,15 +1,34 @@
 use super::*;
-use forma_core::ast::NumberNode;
+use forma_core::ast::{NumberLiteralNode, NumberValueNode};
 
+// 0
+// 123.4
 #[rustfmt::skip]
-pub static IDENTIFIER: LazyLock<Regex> = LazyLock::new(|| {Regex::new(r"^(?x)(
-    \p{XID_START}[\p{XID_Continue}&&[^_＿]]+
+pub static LITERAL: LazyLock<Regex> = LazyLock::new(|| {Regex::new(r"^(?x)(
+    [0-9]+(\.[0-9]+)?
 )").unwrap()});
 
-impl ThisParser for NumberNode {
+impl ThisParser for NumberLiteralNode {
     fn parse(input: ParseState) -> ParseResult<Self> {
-        let (state, m) = input.match_regex(&IDENTIFIER, "IDENTIFIER")?;
-        let id = NumberNode::new(m.as_str(), get_span(input, state));
-        state.finish(id)
+        let (state, m) = input.match_regex(&LITERAL, "IDENTIFIER")?;
+        let number = NumberLiteralNode::new(m.as_str(), get_span(input, state));
+        state.finish(number)
+    }
+}
+
+// 0
+// 123.4
+#[rustfmt::skip]
+pub static VALUE: LazyLock<Regex> = LazyLock::new(|| {Regex::new(r"^(?x)(
+    0 
+|   [1-9][0-9]*(\.[0-9]+)?
+)").unwrap()});
+
+impl ThisParser for NumberValueNode {
+    fn parse(input: ParseState) -> ParseResult<Self> {
+        let (state, m) = input.match_regex(&LITERAL, "IDENTIFIER")?;
+        let (state, unit) = state.match_optional(IdentifierNode::parse)?;
+        let number = NumberValueNode { value: m.as_str().to_string(), unit, span: get_span(input, state) };
+        state.finish(number)
     }
 }

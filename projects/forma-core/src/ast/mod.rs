@@ -1,9 +1,10 @@
-use std::ops::Range;
-use std::str::FromStr;
-use std::string::ParseError;
+use std::{ops::Range, str::FromStr, string::ParseError};
 
 mod atomic;
+mod command;
+mod expression;
 
-pub use self::atomic::IdentifierNode;
-pub use self::atomic::LigatureNode;
-pub use self::atomic::NumberNode;
+pub use self::{
+    atomic::{AlignNode, IdentifierNode, LigatureNode, NumberLiteralNode, NumberValueNode, TextNode},
+    expression::{SequenceNode, SequenceTermNode},
+};
