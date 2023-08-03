@@ -1,16 +1,20 @@
-use forma_core::ast::LigatureNode;
-use crate::helpers::get_span;
 use super::*;
 
 #[rustfmt::skip]
-pub static IDENTIFIER: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"^(?x)(
+pub static IDENTIFIER: LazyLock<Regex> = LazyLock::new(|| {Regex::new(r"^(?x)(
     \p{XID_START}[\p{XID_Continue}&&[^_＿]]+
-)").unwrap()
-});
+)").unwrap()});
 
-pub static LIGATURE: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"^(?x)(
+impl ThisParser for IdentifierNode {
+    fn parse(input: ParseState) -> ParseResult<Self> {
+        let (state, m) = input.match_regex(&IDENTIFIER, "IDENTIFIER")?;
+        let id = IdentifierNode::new(m.as_str(), get_span(input, state));
+        state.finish(id)
+    }
+}
+
+#[rustfmt::skip]
+pub static LIGATURE: LazyLock<Regex> = LazyLock::new(|| {Regex::new(r"^(?x)(
     != # ≠
 |   >= # ⩾
 |   <= # ⩽
@@ -23,21 +27,12 @@ pub static LIGATURE: LazyLock<Regex> = LazyLock::new(|| {
 |   \|-> # ↦
 |   ~>> # ⇝
 |   ~> # \leadsto
-)").unwrap()
-});
-
-impl ThisParser for IdentifierNode {
-    fn parse(input: ParseState) -> ParseResult<Self> {
-        let (state, m) = input.match_regex(&IDENTIFIER, "IDENTIFIER")?;
-        let id = IdentifierNode::new(m.as_str(), get_span(input, state));
-        state.finish(id)
-    }
-}
+)").unwrap()});
 
 impl ThisParser for LigatureNode {
     fn parse(input: ParseState) -> ParseResult<Self> {
-        let (state, m) = input.match_regex(&IDENTIFIER, "IDENTIFIER")?;
-        let id = IdentifierNode::new(m.as_str(), get_span(input, state));
+        let (state, m) = input.match_regex(&IDENTIFIER, "LIGATURE")?;
+        let id = LigatureNode::new(m.as_str(), get_span(input, state));
         state.finish(id)
     }
 }
