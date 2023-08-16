@@ -1,51 +1,60 @@
-use chrono::Utc;
-use sea_orm::{
-    prelude::DateTime, ActiveValue, ColumnTrait, ConnectOptions, DatabaseConnection, EntityTrait, QueryFilter, QueryOrder,
-    QuerySelect, SqlxPostgresConnector,
+use reqwest::{
+    header::{COOKIE, SET_COOKIE},
+    Client,
 };
-use uuid::Uuid;
-use ActiveValue::Set;
-
-use game_orm::{
-    log_result,
-    log_result::Column::{EndTime, GameMode, GameTime},
-    prelude::{Leaderboard, LogResult},
-};
-
-async fn game_db() -> DatabaseConnection {
-    SqlxPostgresConnector::connect(ConnectOptions::from("postgresql://localhost:5432/postgres")).await.unwrap()
-}
+use serde::{Deserialize, Serialize};
 
 #[tokio::test]
-async fn insert_record() {
-    let db = game_db().await;
-    let mut batch = vec![];
-    for _ in 0..=10000 {
-        let record = log_result::ActiveModel {
-            game_id: Set(Uuid::new_v4()),
-            is_valid: Set(true),
-            start_time: Set(Utc::now().naive_utc()),
-            game_time: Default::default(),
-            end_time: Default::default(),
-            ..Default::default() // no need to set primary key
-        };
-        batch.push(record);
-    }
-    LogResult::insert_many(batch).exec(&db).await.unwrap();
-}
-
-#[tokio::test]
-async fn select_daily() {
-    let db = game_db().await;
-    let cakes = Leaderboard::find()
-        .filter(EndTime.gt(DateTime::from_timestamp_opt(0, 0)))
-        .filter(GameMode.eq(1))
-        .order_by_asc(GameTime)
-        .limit(2)
-        .all(&db)
+async fn force() {
+    let client = Client::new();
+    let res = client
+        .post("https://www.zhihu.com/api/v4/questions/267165403/draft")
+        .body(include_str!("data.json"))
+        .header(COOKIE, include_str!("cookie.txt"))
+        .send()
         .await
-        .unwrap();
-    for cake in cakes {
-        println!("{:?}", cake);
-    }
+        .expect("fail send");
+    let out = res.json::<Response>().await.expect("fail read");
+    println!("{:#?}", out)
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Response {
+    pub created_time: i64,
+    pub updated_time: i64,
+    pub content: String,
+    pub title: Struct,
+    pub excerpt: String,
+    pub editable_content: String,
+    pub url: String,
+    pub r#type: String,
+    pub answer_type: String,
+    pub draft_type: String,
+    pub settings: Settings,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Settings {
+    pub disclaimer_status: String,
+    pub disclaimer_type: String,
+    pub comment_permission: String,
+    pub is_copyable: bool,
+    pub reshipment_settings: String,
+    pub can_reward: bool,
+    pub push_activity: bool,
+    pub commercial_report_info: CommercialReportInfo,
+    pub thank_inviter: String,
+    pub thank_inviter_status: String,
+    pub table_of_contents_enabled: bool,
+    pub table_of_contents: Struct,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct CommercialReportInfo {
+    pub is_report: bool,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Struct {
+    pub enabled: bool,
 }

@@ -1,5 +1,5 @@
 [package]
-name = "forma-core"
+name = "mathy"
 version = "0.0.0"
 authors = ["Aster <192607617@qq.com>"]
 description = "math for note"
@@ -10,5 +10,7 @@ license = "MPL-2.0"
 edition = "2021"
 
 [dependencies]
-serde = { version = "1.0.149", features = ["derive"] }
-
+pex = { version = "0.2.4", features = ["regex"] }
+serde = { version = "1.0.149", features = ["derive"], optional = true }
+latexify = "0.1.0"
+url = "2.3.1"

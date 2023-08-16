@@ -1,5 +1,5 @@
 [package]
-name = "forma-wasm"
+name = "mathy-wasm"
 publish = false
 version = "0.0.0"
 authors = ["Aster <192607617@qq.com>"]
@@ -11,12 +11,9 @@ license = "MPL-2.0"
 edition = "2021"
 
 [dependencies]
-itertools = "0.10.5"
-tokio = { version = "1.23.0", features = ["full"] }
-uuid = { version = "1.2.2", features = ["serde", "v4"] }
-chrono = { version = "0.4.23", features = ["serde"] }
-mockall = "0.11.3"
-
+serde = { version = "1.0.163", features = ["derive"] }
+reqwest = { version = "0.11.18", features = ["json"] }
+tokio = { version = "1.28.1", features = ["full"] }
 
 [dev-dependencies]
 

@@ -69,12 +69,12 @@ lexer 不再按照 char 来切词, 直接按 letter 和 number 切.
 | 表达式         | 解糖                    | LaTeX     |
 |-------------|-----------------------|-----------|
 | `a_b`       | `\sub(a, b)`          | $a_b$     |
-| `a_b_c`     | `\sub(a, sub(b, c))`  | $a_{b_c}$ |
-| `a_{b_c}`   | `\sub(a, sub(b, c))`  | $a_{b_c}$ |
+| `a_b_c`     | `\sub(a, \sub(b, c))` | $a_{b_c}$ |
+| `a_{b_c}`   | `\sub(a, \sub(b, c))` | $a_{b_c}$ |
 | `{a_b}_c`   | `\sub(\sub(a, b), c)` | ${a_b}_c$ |
 | `a_^{b, c}` | `\subsup(a, b, c)`    | $a_b^c$   |
-| `a_b^c`     | `\sup(a, sub(b, c))`  | $a_{b^c}$ |
-| `a_{b^c}`   | `\sub(a, sup(b, c))`  | $a_{b^c}$ |
+| `a_b^c`     | `\sup(a, \sub(b, c))` | $a_{b^c}$ |
+| `a_{b^c}`   | `\sub(a, \sup(b, c))` | $a_{b^c}$ |
 | `{a_b}^c`   | `\sup(\sub(a, b), c)` | ${a_b}^c$ |
 
 ## pair 函数
@@ -133,3 +133,7 @@ lexer 不再按照 char 来切词, 直接按 letter 和 number 切.
 | `{a / b}.inline`          | $\frac{a}{b}$             |
 | `{a / b}.display`         | $\dfrac{a}{b}$            |
 | `{a.phantom / b}.display` | $\dfrac{\phantom {a}}{b}$ |
+
+
+
+

@@ -1,5 +1,5 @@
 [package]
-name = "forma-parser"
+name = "mathy-parser"
 version = "0.0.0"
 authors = ["Aster <192607617@qq.com>"]
 description = "Notedown Text parser"
@@ -13,9 +13,9 @@ publish = false
 pex = { version = "0.2.4", features = ["regex"] }
 
 
-[dependencies.forma-core]
-version = "0.0.*"
-path = "../forma-core"
-features = []
+#[dependencies.forma-core]
+#version = "0.0.*"
+#path = "../forma-core"
+#features = []
 
 [dev-dependencies]

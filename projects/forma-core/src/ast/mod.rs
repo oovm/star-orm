@@ -5,6 +5,6 @@ mod command;
 mod expression;
 
 pub use self::{
-    atomic::{AlignNode, IdentifierNode, LigatureNode, NumberLiteralNode, NumberValueNode, TextNode},
+    atomic::{AlignNode, EscapeNode, IdentifierNode, LigatureNode, NumberLiteralNode, NumberValueNode, TextNode},
     expression::{SequenceNode, SequenceTermNode},
 };

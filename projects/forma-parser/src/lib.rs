@@ -1,6 +1,8 @@
 #![feature(lazy_cell)]
 
+mod atomic;
+mod helpers;
 pub mod notedown;
 mod traits;
-mod helpers;
-mod atomic;
+
+pub use self::traits::NoteParser;

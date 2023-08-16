@@ -8,7 +8,7 @@ pub static LITERAL: LazyLock<Regex> = LazyLock::new(|| {Regex::new(r"^(?x)(
     [0-9]+(\.[0-9]+)?
 )").unwrap()});
 
-impl ThisParser for NumberLiteralNode {
+impl NoteParser for NumberLiteralNode {
     fn parse(input: ParseState) -> ParseResult<Self> {
         let (state, m) = input.match_regex(&LITERAL, "IDENTIFIER")?;
         let number = NumberLiteralNode::new(m.as_str(), get_span(input, state));
@@ -24,7 +24,7 @@ pub static VALUE: LazyLock<Regex> = LazyLock::new(|| {Regex::new(r"^(?x)(
 |   [1-9][0-9]*(\.[0-9]+)?
 )").unwrap()});
 
-impl ThisParser for NumberValueNode {
+impl NoteParser for NumberValueNode {
     fn parse(input: ParseState) -> ParseResult<Self> {
         let (state, m) = input.match_regex(&LITERAL, "IDENTIFIER")?;
         let (state, unit) = state.match_optional(IdentifierNode::parse)?;

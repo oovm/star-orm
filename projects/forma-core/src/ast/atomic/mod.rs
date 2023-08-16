@@ -1,4 +1,16 @@
 use super::*;
+use std::rc::Rc;
+use url::Url;
+
+mod indentifiers;
+
+#[derive(Clone, Debug, Eq, PartialEq, Hash)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct MathSymbol {
+    pub text: String,
+    pub span: Range<u32>,
+    pub file: Option<Rc<Url>>,
+}
 
 #[derive(Clone, Debug, Eq, PartialEq, Hash)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -11,6 +23,14 @@ pub struct IdentifierNode {
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub struct TextNode {
     pub text: String,
+    pub span: Range<u32>,
+}
+
+/// `\.`
+#[derive(Clone, Debug, Eq, PartialEq, Hash)]
+#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+pub struct EscapeNode {
+    pub escape: char,
     pub span: Range<u32>,
 }
 
