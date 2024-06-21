@@ -2,7 +2,7 @@
 resolver = "2"
 members = ["projects/*"]
 default-members = [
-    "projects/forma-core",
+    "projects/mathy-core",
     "projects/forma-parser",
     "projects/forma-wasm",
 ]

@@ -42,6 +42,8 @@ pub enum MathVariant {
     ///
     /// `\mathbf{\mathscr{}}`
     BoldScript,
+    /// `\mathcal{}`
+    Calligraphy,
     /// <math><mi mathvariant="sans-serif">ABCDEFGHIJKLMNOPQRSTUVWXYZ</mi></math>
     ///
     /// `\mathsf{}`

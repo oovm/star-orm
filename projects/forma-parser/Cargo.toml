@@ -13,9 +13,9 @@ publish = false
 pex = { version = "0.2.4", features = ["regex"] }
 
 
-#[dependencies.forma-core]
+#[dependencies.mathy-core]
 #version = "0.0.*"
-#path = "../forma-core"
+#path = "../mathy-core"
 #features = []
 
 [dev-dependencies]
